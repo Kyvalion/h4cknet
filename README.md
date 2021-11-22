@@ -1,4 +1,5 @@
 # Linux Professional Working Studio
+### Pastebin Shortcut: https://pastebin.com/EEX1Dsuq
 ### Al correcto funcionamiento de BurpSuite, tenéis que añadir en arriba del todo en el archivo bspwmrc la línea 'wmname LG3D &', de esta forma tras recargar la configuración deberíais verlo con las proporciones correctas. Haced también un 'update-alternatives --config java' para dejarlo operando con Java 11, de lo contrario os pueden aparecer ciertos problemas.
 
 1. Instalamos los siguientes paquetes:
