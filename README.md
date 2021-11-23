@@ -1,43 +1,47 @@
 # Linux Professional Working Studio
-### Pastebin Shortcut: https://pastebin.com/EEX1Dsuq
-### Al correcto funcionamiento de BurpSuite, tenéis que añadir en arriba del todo en el archivo bspwmrc la línea 'wmname LG3D &', de esta forma tras recargar la configuración deberíais verlo con las proporciones correctas. Haced también un 'update-alternatives --config java' para dejarlo operando con Java 11, de lo contrario os pueden aparecer ciertos problemas.
+Pastebin Shortcut: https://pastebin.com/EEX1Dsuq
 
-1. Instalamos los siguientes paquetes:
+Al correcto funcionamiento de BurpSuite, tenéis que añadir en arriba del todo en el archivo bspwmrc la línea 'wmname LG3D &', de esta forma tras recargar la configuración deberíais verlo con las proporciones correctas. Haced también un 'update-alternatives --config java' para dejarlo operando con Java 11, de lo contrario os pueden aparecer ciertos problemas.
 
-apt install build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev
+### 1. Instalamos los siguientes paquetes:
+```
+sudo apt install build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev
+```
+### 2. Instalamos bspwm y sxhkd:
 
-2. Instalamos bspwm y sxhkd:
-
-cd /home/s4vitar/Descargas/
+```
+mkdir ~/Main/Alpha
+cd ~/Main/Alpha
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/baskerville/sxhkd.git
-cd bspwm/
+cd ~/Main/Alpha/bspwm/
 make
 sudo make install
-cd ../sxhkd/
+cd ~/Main/Alpha/sxhkd/
 make
 sudo make install
-
 sudo apt install bspwm
-
-3. Cargamos en bspwm y sxhkd ficheros de ejemplo:
-
+```
+# 3. Cargamos en bspwm y sxhkd ficheros de ejemplo:
+```
 mkdir ~/.config/bspwm
 mkdir ~/.config/sxhkd
-cd /home/s4vitar/Descargas/bspwm/
 cp examples/bspwmrc ~/.config/bspwm/
 chmod +x ~/.config/bspwm/bspwmrc 
 cp examples/sxhkdrc ~/.config/sxhkd/
+```
+# 4. Abrimos el sxhkdrc y configuramos el tipo de terminal así como algunos key bindings:
 
-4. Abrimos el sxhkdrc y configuramos el tipo de terminal así como algunos key bindings:
-# ------------------------------------------------------------------------------------------------
-#
+Yo voy a estar usando la terminal Konsole, ustedes la pueden reemplazar por la que más le guste
+```
+# ---------------------------------------------------------------------------------
+# 
 # wm independent hotkeys
 #
 
 # terminal emulator
 super + Return
-	gnome-terminal
+	konsole
 
 # program launcher
 super + d
@@ -156,16 +160,21 @@ super + ctrl + {Left,Down,Up,Right}
 
 # Custom move/resize
 alt + super + {Left,Down,Up,Right}
-	/home/s4vitar/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 # ------------------------------------------------------------------------------------------------
-
-5. Creamos el archivo bspwm_resize:
-
+```
+# 5. Creamos el archivo bspwm_resize:
+```
 mkdir ~/.config/bspwm/scripts/
 touch ~/.config/bspwm/scripts/bspwm_resize; chmod +x ~/.config/bspwm/scripts/bspwm_resize
-
+```
 Mediante la siguiente configuración podremos en el futuro controlar las dimensiones de las vetanas, así como
 modificarlas con atajos de teclado:
+```
+cd ~/.config/bspwm/scripts/
+```
+Dentro del archivo bspwm_resize pegamos lo siguiente:
+```
 # ------------------------------------------------------------------------------------------------
 #!/usr/bin/env dash
 
@@ -184,47 +193,71 @@ esac
 
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 # -------------------------------------------------------------------------------------------------
+```
+# 6. Procedemos a instalar la polybar. Para ello, instalamos primero los siguientes paquetes:
 
-6. Procedemos a instalar la polybar. Para ello, instalamos primero los siguientes paquetes:
-
+```sudo apt update
 sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
+```
 
 Para instalar la polybar hacemos lo siguiente:
 
-cd /home/s4vitar/Descargas/
+```
+cd ~/Main/Alpha
+sudo apt-get install libuv1-dev
 git clone --recursive https://github.com/polybar/polybar
-cd polybar/
+cd polybar
 mkdir build
 cd build/
 cmake ..
 make -j$(nproc)
 sudo make install
+```
 
 7. Procedemos con la instalación de Picom para ajustar las transparencias (Compton ya está deprecated).
 
 Primeramente, instalamos los siguientes paquetes, no sin antes actualizar el sistema:
-
+```
 sudo apt update
 sudo apt install meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev
-
+```
 Posteriormente, ejecutamos los siguientes comandos bajo el directorio ~/Descargas:
-
+```
+cd ~/Downloads
 git clone https://github.com/ibhagwan/picom.git
 cd picom/
 git submodule update --init --recursive
 meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
-
+```
 8. Instalamos rofi (Posteriormente instalaremos el tema Nord para Rofi):
-
+```
 sudo apt install rofi
-
+```
 9. En este punto, reiniciamos el equipo y seleccionamos bspwm (Probamos que los shortcuts estén funcionando correctamente).
 
-10. Configuramos un poco la terminal e instalamos las Hack Nerd Fonts, además del Firefox (hay que descargarse la última versión, también instalaremos firejail con 'apt install firejail' con el objetivo de lanzar firefox bajo este contexto enjaulado con sxhkd). [Las fuentes de Hack Nerd Fonts deben ir descomprimidas en /usr/local/share/fonts/, una vez hecho hay que ejecutar el comando 'fc-cache -v']
+10. Configuramos un poco la terminal (quitar el boton de scrolling y el menu superior donde se encuentran los botones para minimizar, maximizar y cerrar, y tambien quitamos la toolbar (CTRL+SHIFT+M) e instalamos las Hack Nerd Fonts, además del Firefox (hay que descargarse la última versión, también instalaremos firejail con 'apt install firejail' con el objetivo de lanzar firefox bajo este contexto enjaulado con sxhkd). [Las fuentes de Hack Nerd Fonts deben ir descomprimidas en /usr/local/share/fonts/, una vez hecho hay que ejecutar el comando 'fc-cache -v']
+
+sudo su
+
+cd /user/local/share/fonts
+
+mv /home/yonasuriv/Downloads/Hack.zip .
+
+(Claramente tienen que reemplazar 'yonasuriv' por su usuario)
+
+unzip Hack.zip
+
+rm Hack.zip
+
 
 11. Instalamos el addon 'FoxyProxy' para Firefox.
+
+Agregamos:feh-
+Name: BurpSuite
+IP: 127.0.0.1
+Port:8080
 
 12. Configuramos la privacidad en Firefox y el directorio de descargas principal
 
