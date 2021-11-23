@@ -22,7 +22,7 @@ make
 sudo make install
 sudo apt install bspwm
 ```
-# 3. Cargamos en bspwm y sxhkd ficheros de ejemplo:
+### 3. Cargamos en bspwm y sxhkd ficheros de ejemplo:
 ```
 mkdir ~/.config/bspwm
 mkdir ~/.config/sxhkd
@@ -30,7 +30,7 @@ cp examples/bspwmrc ~/.config/bspwm/
 chmod +x ~/.config/bspwm/bspwmrc 
 cp examples/sxhkdrc ~/.config/sxhkd/
 ```
-# 4. Abrimos el sxhkdrc y configuramos el tipo de terminal así como algunos key bindings:
+### 4. Abrimos el sxhkdrc y configuramos el tipo de terminal así como algunos key bindings:
 
 Yo voy a estar usando la terminal Konsole, ustedes la pueden reemplazar por la que más le guste
 ```
@@ -163,7 +163,7 @@ alt + super + {Left,Down,Up,Right}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 # ------------------------------------------------------------------------------------------------
 ```
-# 5. Creamos el archivo bspwm_resize:
+### 5. Creamos el archivo bspwm_resize:
 ```
 mkdir ~/.config/bspwm/scripts/
 touch ~/.config/bspwm/scripts/bspwm_resize; chmod +x ~/.config/bspwm/scripts/bspwm_resize
@@ -194,7 +194,7 @@ esac
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 # -------------------------------------------------------------------------------------------------
 ```
-# 6. Procedemos a instalar la polybar. Para ello, instalamos primero los siguientes paquetes:
+### 6. Procedemos a instalar la polybar. Para ello, instalamos primero los siguientes paquetes:
 
 ```sudo apt update
 sudo apt install cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
@@ -214,7 +214,7 @@ make -j$(nproc)
 sudo make install
 ```
 
-7. Procedemos con la instalación de Picom para ajustar las transparencias (Compton ya está deprecated).
+### 7. Procedemos con la instalación de Picom para ajustar las transparencias (Compton ya está deprecated).
 
 Primeramente, instalamos los siguientes paquetes, no sin antes actualizar el sistema:
 ```
@@ -231,13 +231,13 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 ```
-8. Instalamos rofi (Posteriormente instalaremos el tema Nord para Rofi):
+### 8. Instalamos rofi (Posteriormente instalaremos el tema Nord para Rofi):
 ```
 sudo apt install rofi
 ```
-9. En este punto, reiniciamos el equipo y seleccionamos bspwm (Probamos que los shortcuts estén funcionando correctamente).
+### 9. En este punto, reiniciamos el equipo y seleccionamos bspwm (Probamos que los shortcuts estén funcionando correctamente).
 
-10. Configuramos un poco la terminal (quitar el boton de scrolling y el menu superior donde se encuentran los botones para minimizar, maximizar y cerrar, y tambien quitamos la toolbar (CTRL+SHIFT+M) e instalamos las Hack Nerd Fonts, además del Firefox (hay que descargarse la última versión, también instalaremos firejail con 'apt install firejail' con el objetivo de lanzar firefox bajo este contexto enjaulado con sxhkd). [Las fuentes de Hack Nerd Fonts deben ir descomprimidas en /usr/local/share/fonts/, una vez hecho hay que ejecutar el comando 'fc-cache -v']
+### 10. Configuramos un poco la terminal (quitar el boton de scrolling y el menu superior donde se encuentran los botones para minimizar, maximizar y cerrar, y tambien quitamos la toolbar (CTRL+SHIFT+M) e instalamos las Hack Nerd Fonts, además del Firefox (hay que descargarse la última versión, también instalaremos firejail con 'apt install firejail' con el objetivo de lanzar firefox bajo este contexto enjaulado con sxhkd). [Las fuentes de Hack Nerd Fonts deben ir descomprimidas en /usr/local/share/fonts/, una vez hecho hay que ejecutar el comando 'fc-cache -v']
 
 sudo su
 
@@ -252,22 +252,22 @@ unzip Hack.zip
 rm Hack.zip
 
 
-11. Instalamos el addon 'FoxyProxy' para Firefox.
+### 11. Instalamos el addon 'FoxyProxy' para Firefox.
 
 Agregamos:feh-
 Name: BurpSuite
 IP: 127.0.0.1
 Port:8080
 
-12. Configuramos la privacidad en Firefox y el directorio de descargas principal
+### 12. Configuramos la privacidad en Firefox y el directorio de descargas principal
 
-13. Instalamos 'feh' con 'apt install feh' para poder cargar fondos de pantalla.
+### 13. Instalamos 'feh' con 'apt install feh' para poder cargar fondos de pantalla.
 
-14. Cargamos en el archivo bspwmrc justo al final la siguiente línea:
+### 14. Cargamos en el archivo bspwmrc justo al final la siguiente línea:
 
 feh --bg-fill /home/s4vitar/Desktop/S4vitar/Images/fondo.jpg
 
-15. Para configurar nuestra Polybar, clonaremos primeramente en 'Descargas' el siguiente repositorio:
+### 15. Para configurar nuestra Polybar, clonaremos primeramente en 'Descargas' el siguiente repositorio:
 
 git clone https://github.com/VaughnValle/blue-sky.git
 
@@ -283,7 +283,7 @@ fc-cache -v
 
 Hacemos Windows + Shift + R para cargar la configuración y deberíamos ver la Polybar por arriba.
 
-16. Para configurar Picom y ajustar las transparencias además de bordeados de ventana, ejecutamos los siguientes pasos:
+### 16. Para configurar Picom y ajustar las transparencias además de bordeados de ventana, ejecutamos los siguientes pasos:
 
 mkdir ~/.config/picom
 cd ~/.config/picom
@@ -300,7 +300,7 @@ Posteriormente, ejecutamos los siguientes comandos para aplicar los bordeados:
 echo 'picom --experimental-backends &' >> ~/.config/bspwm/bspwmrc 
 echo 'bspc config border_width 0' >> ~/.config/bspwm/bspwmrc
 
-17. Configuramos los colores de la polybar (paleta central), además de las paletas deseadas.
+### 17. Configuramos los colores de la polybar (paleta central), además de las paletas deseadas.
 
 Estructura de un nuevo módulo:
 
@@ -329,14 +329,14 @@ else
 	echo "%{F#1bbf3e}%{u-} Disconnected"
 fi
 
-18. Configuramos el tema Nord de Rofi:
+### 18. Configuramos el tema Nord de Rofi:
 
 mkdir -p ~/.config/rofi/themes
 cp ~/Descargas/blue-sky/nord.rasi ~/.config/rofi/themes
 
 Posteriormente con 'rofi-theme-selector' seleccionamos el tema Nord.
 
-19. Instalamos slim y slimlock
+### 19. Instalamos slim y slimlock
 
 Instalamos los siguientes paquetes, no sin antes hacer una actualización:
 
@@ -357,20 +357,20 @@ sudo cp -r default /usr/share/slim/themes
 
 Si queremos cambiar la imagen del panel, nos vamos a la ruta '/usr/share/slim/themes/default' y retocamos el archivo 'panel.png'.
 
-20. Reiniciamos el sistema y una vez arrancado, incorporamos en el archivo 'bspwmrc' la siguiente línea para arreglar el cursor:
+### 20. Reiniciamos el sistema y una vez arrancado, incorporamos en el archivo 'bspwmrc' la siguiente línea para arreglar el cursor:
 
 xsetroot -cursor_name left_ptr &
 
-21. Instalamos la powerlevel10k en zsh
+### 21. Instalamos la powerlevel10k en zsh
 
-22. Creamos enlace simbólico de la zshrc para root
+### 22. Creamos enlace simbólico de la zshrc para root
 
-23. Cambiamos el tipo de shell por defecto tanto para root como para el usuario con bajos privilegios
+### 23. Cambiamos el tipo de shell por defecto tanto para root como para el usuario con bajos privilegios
 
 usermod --shell /usr/bin/zsh tuUsuario
 usermod --shell /usr/bin/zsh root
 
-24. Retocamos el archivo .p10k.zsh para adecuarlo a nuestro gusto
+### 24. Retocamos el archivo .p10k.zsh para adecuarlo a nuestro gusto
 
 Para el de root, podemos ir a 'POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE' para asignar el Hashtag.
 
@@ -384,11 +384,11 @@ chown s4vitar:s4vitar /root
 chown s4vitar:s4vitar /root/.cache -R
 chown s4vitar:s4vitar /root/.local -R
 
-25. Instalamos bat, lsd, fzf y ranger
+### 25. Instalamos bat, lsd, fzf y ranger
 
-26. Instalar el plugin sudo
+### 26. Instalar el plugin sudo
 
-27. Instalamos nvim con el theme nord
+### 27. Instalamos nvim con el theme nord
 
 cd .config/nvim/
 wget https://github.com/arcticicestudio/nord-vim/archive/master.zip
@@ -422,9 +422,9 @@ zle -N zle-keymap-select
 # Start with beam shape cursor on zsh startup and after every command.
 zle-line-init() { zle-keymap-select 'beam'}
 
-28. Instalamos Oh My Tmux
+### 28. Instalamos Oh My Tmux
 
-29. Whichsystem.py
+### 29. Whichsystem.py
 
 https://github.com/Akronox/WichSystem.py
 
